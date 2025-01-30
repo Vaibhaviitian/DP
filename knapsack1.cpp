@@ -74,7 +74,7 @@ int rec(int inx, int left_wt, vl &wt, vl &values)
         return 0;
     if (dp[inx][left_wt] != -1)
         return dp[inx][left_wt];
-    // brute force
+    // brute force recursion
     // 1-> not including the inx quantity
     int ans = rec(inx - 1, left_wt, wt, values);
     // including the i choice
