@@ -1,0 +1,1 @@
+{"name":"Local: Coins","url":"c:\\Users\\Vaibhav Aryan\\OneDrive\\Desktop\\coding\\DP\\atcoder\\Coins.cpp","tests":[{"id":1743090355326,"input":"5\n0.42 0.01 0.42 0.99 0.42\n","output":"0.3821815872\n"}],"interactive":false,"memoryLimit":1024,"timeLimit":3000,"srcPath":"c:\\Users\\Vaibhav Aryan\\OneDrive\\Desktop\\coding\\DP\\atcoder\\Coins.cpp","group":"local","local":true}

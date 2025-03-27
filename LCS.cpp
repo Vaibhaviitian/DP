@@ -95,26 +95,97 @@ int coordinate_distance(int x1, int x2, int y1, int y2)
 void coderaryan()
 {
     // executing code from here
-    int n, k;
-    cin >> n >> k;
-    vi vec(n);
-    for (int i = 0; i < n; i++)
-        cin >> vec[i];
-    vi dp(k + 1, 0);
-    dp[0] = 1;
-    for (int i = 0; i < n; i++)
+    int t = 1;
+    while (t--)
     {
-        for (int j = 1; j <= k; j++)
+        string a, b;
+        cin >> a >> b;
+        int n = a.size(), m = b.size();
+        // dp[i][j]->if we are considering ith string of a and jth string of j then what is the value of max LCS
+        // base case
+        vector<vector<int>> dp(n, vector<int>(m, 0));
+        string s;
+        for (int i = 0; i < n; i++)
         {
-            if (j - vec[i] >= 0)
+            s += a[i];
+            dp[i][0] = count(s.begin(), s.end(), b[0]);
+        }
+        s.clear();
+        for (int i = 0; i < m; i++)
+        {
+            s += b[i];
+            dp[0][i] = count(s.begin(), s.end(), a[0]);
+        }
+        for (int i = 1; i < n; i++)
+        {
+            for (int j = 1; j < m; j++)
             {
-                // dbg(j), dbg(vec[i]);
-                dp[j] = (dp[j] + dp[j - vec[i]]) % MOD;
+                if (a[i] == b[j])
+                {
+                    if (i - 1 >= 0 && j - 1 >= 0)
+                    {
+                        dp[i][j] = max(dp[i - 1][j - 1] + 1, dp[i][j]);
+                    }
+                }
+                else
+                {
+                    if (i - 1 >= 0)
+                    {
+                        dp[i][j] = max(dp[i - 1][j], dp[i][j]);
+                    }
+                    if (j - 1 >= 0)
+                    {
+                        dp[i][j] = max(dp[i][j - 1], dp[i][j]);
+                    }
+                    if (i - 1 >= 0 && j - 1 >= 0)
+                    {
+                        dp[i][j] = max(dp[i - 1][j - 1], dp[i][j]);
+                    }
+                }
             }
         }
+        // helptwo(dp);
+        s.clear();
+        int i = n - 1, j = m - 1;
+        while (i >= 0 && j >= 0)
+        {
+            // cout << "Initial" << endl;
+            // dbg(i), dbg(j);
+
+            if (a[i] == b[j])
+            {
+                s += a[i];
+                if (i == 0 && j > 0)
+                {
+                    j--;
+                }
+                else if (j == 0 && i > 0)
+                {
+                    i--;
+                }
+                else
+                {
+                    i--;
+                    j--;
+                }
+            }
+            else if (i > 0 && (j == 0 || dp[i - 1][j] >= dp[i][j - 1]))
+            {
+                i--;
+            }
+            else
+            {
+                j--;
+            }
+
+            // cout << "after" << endl;
+            // dbg(i), dbg(j);
+            // dbg(s);
+        }
+
+        reverse(s.begin(), s.end());
+        cout << s << endl;
     }
-    // help(dp);
-    cout << dp[k] << endl;
 }
 
 int32_t main()
